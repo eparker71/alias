@@ -1,3 +1,4 @@
 alias dd="du -sh */"
 alias a="cat ~/.zshrc | grep alias" 
 alias ls="ls -lahSr"
+alias s="source ~/.zshrc"
