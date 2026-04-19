@@ -1,0 +1,42 @@
+# navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ~='cd ~'
+alias down='cd ~/Downloads'
+alias desk='cd ~/Desktop'
+alias docs='cd ~/Documents'
+
+# listing / disk
+alias ls="ls -lahSr"
+alias lsd="du -sh */"
+
+# file operations
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias mkdir='mkdir -pv'
+
+# shell
+alias s="source ~/.zshrc"
+alias reload='exec zsh'
+alias a="cat ~/.zshrc | grep alias"
+
+# utilities
+alias grep='grep --color=auto'
+alias h='history | grep'
+alias ip='curl ifconfig.me'
+
+# git
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit -m'
+alias gp='git pull'
+alias gpm='git push origin main'
+alias gd='git diff'
+alias gl='git log --oneline --graph --decorate'
+alias gb='git branch'
+alias gco='git checkout'
+
+# macOS
+alias show='open .'
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES && killall Finder'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO && killall Finder'
