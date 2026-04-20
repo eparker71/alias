@@ -79,7 +79,7 @@ source ~/.zshrc
 
 ### `fix_file_names.sh`
 
-Renames files and directories to be cross-platform safe (Windows/macOS/Linux compatible).
+Fixes file and directory names on macOS so they sync cleanly with OneDrive. OneDrive rejects names containing characters that are illegal on Windows, as well as names with leading/trailing spaces or trailing periods.
 
 **What it fixes:**
 - Replaces illegal characters (`< > : " ? * | \`) with `_`
