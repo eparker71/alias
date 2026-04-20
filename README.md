@@ -1,6 +1,6 @@
-# My Shell Aliases
+# My Shell Utilities
 
-A collection of zsh aliases to speed up common terminal tasks.
+A collection of zsh aliases and shell scripts to speed up common terminal tasks.
 
 ## Installation
 
@@ -74,3 +74,28 @@ source ~/.zshrc
 | `show` | `open .` | Open current directory in Finder |
 | `showfiles` | — | Show hidden files in Finder |
 | `hidefiles` | — | Hide hidden files in Finder |
+
+## Scripts
+
+### `fix_file_names.sh`
+
+Renames files and directories to be cross-platform safe (Windows/macOS/Linux compatible).
+
+**What it fixes:**
+- Replaces illegal characters (`< > : " ? * | \`) with `_`
+- Trims leading/trailing spaces from names
+- Removes trailing periods
+
+Collisions are handled automatically by appending `_1`, `_2`, etc.
+
+**Usage:**
+
+```bash
+# Preview changes (dry run, default)
+./fix_file_names.sh
+
+# Apply changes — set DRY_RUN=0 at the top of the script first
+./fix_file_names.sh
+```
+
+Run from the directory you want to fix. It processes files bottom-up so renaming a directory doesn't break traversal of its contents.
