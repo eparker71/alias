@@ -5,6 +5,7 @@ DRY_RUN=1
 
 fix_name() {
   local path="$1"
+  local dir base new target i
 
   dir="$(dirname "$path")"
   base="$(basename "$path")"
@@ -16,7 +17,7 @@ fix_name() {
   new="$(echo "$new" | sed 's/^ *//; s/ *$//')"
 
   # Step 3: remove trailing periods
-  new="$(echo "$new" | sed 's/\.*$//')"
+  new="$(echo "$new" | sed 's/\.+$//')"
 
   # If nothing changed, skip
   if [[ "$base" == "$new" ]]; then
@@ -41,9 +42,7 @@ fix_name() {
   fi
 }
 
-export -f fix_name
-
 # Process files and directories (bottom-up so renaming dirs doesn't break traversal)
-find . -depth -print0 | while IFS= read -r -d '' file; do
+find . -mindepth 1 -depth -print0 | while IFS= read -r -d '' file; do
   fix_name "$file"
 done
