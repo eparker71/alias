@@ -14,6 +14,7 @@ alias lsd="du -sh */"
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
+alias rmd='rm -Rf'
 
 # shell
 alias s="source ~/.zshrc"
@@ -24,6 +25,7 @@ alias a="cat ~/.zshrc | grep alias"
 alias grep='grep --color=auto'
 alias h='history | grep'
 alias ip='curl ifconfig.me'
+alias files='find . -type f | wc -l'
 
 # git
 alias gs='git status'

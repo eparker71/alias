@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Set to 1 for preview (no changes), 0 to actually rename
-DRY_RUN=1
+DRY_RUN=0
 
 fix_name() {
   local path="$1"
@@ -17,7 +17,7 @@ fix_name() {
   new="$(echo "$new" | sed 's/^ *//; s/ *$//')"
 
   # Step 3: remove trailing periods
-  new="$(echo "$new" | sed 's/\.+$//')"
+  new="$(echo "$new" | sed -E 's/\.+$//')"
 
   # If nothing changed, skip
   if [[ "$base" == "$new" ]]; then
@@ -36,13 +36,23 @@ fix_name() {
   fi
 
   if [[ $DRY_RUN -eq 1 ]]; then
-    echo "mv \"$path\" \"$target\""
+    echo "[DRY RUN] would rename: \"$path\" -> \"$target\""
   else
+    echo "[FIX] \"$path\" -> \"$target\""
     mv "$path" "$target"
   fi
+  ((fixed++))
 }
 
 # Process files and directories (bottom-up so renaming dirs doesn't break traversal)
-find . -mindepth 1 -depth -print0 | while IFS= read -r -d '' file; do
+echo "Scanning for files to fix..."
+count=0
+fixed=0
+while IFS= read -r -d '' file; do
+  ((count++))
+  if (( count % 100 == 0 )); then
+    echo "  ... checked $count items so far (fixed $fixed)"
+  fi
   fix_name "$file"
-done
+done < <(find . -mindepth 1 -depth -print0)
+echo "Done. Checked $count items, fixed $fixed."

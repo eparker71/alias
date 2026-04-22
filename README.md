@@ -40,6 +40,7 @@ source ~/.zshrc
 | `cp` | `cp -iv` | Copy with confirmation and verbose output |
 | `mv` | `mv -iv` | Move with confirmation and verbose output |
 | `mkdir` | `mkdir -pv` | Create directories recursively with verbose output |
+| `rmd` | `rm -Rf` | Force-remove a directory recursively |
 
 ### Shell
 | Alias | Command | Description |
@@ -54,6 +55,7 @@ source ~/.zshrc
 | `grep` | `grep --color=auto` | Grep with color highlighting |
 | `h` | `history \| grep` | Search command history |
 | `ip` | `curl ifconfig.me` | Show public IP address |
+| `files` | `find . -type f \| wc -l` | Count files in current directory |
 
 ### Git
 | Alias | Command | Description |
