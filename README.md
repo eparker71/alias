@@ -79,6 +79,56 @@ source ~/.zshrc
 
 ## Scripts
 
+### `sysdiag.sh` (Linux)
+
+A comprehensive Linux performance diagnostic script. Runs a full suite of tools to identify performance bottlenecks and pinpoint the specific processes responsible. Exits immediately if run on a non-Linux OS.
+
+**What it checks:**
+- **Uptime & load average** — flags if load exceeds CPU core count
+- **Kernel ring buffer (dmesg)** — highlights OOM kills, I/O errors, segfaults
+- **Memory usage (free)** — warns on low available memory or active swap
+- **Virtual memory & I/O wait (vmstat)** — identifies swap and I/O bottlenecks
+- **Per-CPU stats (mpstat)** — breaks down %iowait, %usr, %sys per core
+- **Disk I/O saturation (iostat)** — flags high %util and await latency
+- **Process-level CPU, memory, disk, and context switching (pidstat)** — pinpoints which processes are the culprits
+
+Output is color-coded: Red = critical, Yellow = warning, Cyan = section header.
+
+**Usage:**
+
+```bash
+./sysdiag.sh
+```
+
+Requires `sysstat` (`vmstat`, `mpstat`, `iostat`, `pidstat`) and `procps-ng` (`uptime`, `free`, `top`). Install on RHEL/CentOS with:
+
+```bash
+sudo yum install sysstat procps-ng
+```
+
+### `sysdiag_mac.sh` (macOS)
+
+A macOS-native equivalent of `sysdiag.sh` using built-in macOS tools. Exits immediately if run on a non-macOS OS.
+
+**What it checks:**
+- **Uptime & load average** — flags if load exceeds CPU core count (`sysctl hw.logicalcpu`)
+- **Memory usage (vm_stat)** — calculates available RAM from page statistics, warns on low availability
+- **Swap usage** — flags any active swap via `sysctl vm.swapusage`
+- **CPU usage** — reports idle/user/sys breakdown via `top`, flags saturation
+- **Disk I/O (iostat)** — shows transfers per second and throughput
+- **Top processes by CPU and memory** — uses `ps aux` sorted by resource usage
+- **Final snapshot** — top 15 processes via `top`
+
+Output is color-coded: Red = critical, Yellow = warning, Cyan = section header.
+
+**Usage:**
+
+```bash
+./sysdiag_mac.sh
+```
+
+All required tools (`vm_stat`, `iostat`, `top`, `ps`, `sysctl`) are included with macOS — no installation needed.
+
 ### `fix_file_names.sh`
 
 Fixes file and directory names on macOS so they sync cleanly with OneDrive. OneDrive rejects names containing characters that are illegal on Windows, as well as names with leading/trailing spaces or trailing periods.
