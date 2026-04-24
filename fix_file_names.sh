@@ -11,7 +11,7 @@ fix_name() {
   base="$(basename "$path")"
 
   # Step 1: remove illegal characters
-  new="$(echo "$base" | sed 's/[<>:"?*|\\]/_/g')"
+  new="$(echo "$base" | sed 's/[<>:;"?*|\\]/_/g')"
 
   # Step 2: trim leading/trailing spaces
   new="$(echo "$new" | sed 's/^ *//; s/ *$//')"
